@@ -2,15 +2,15 @@ package recfun
 
 object Main {
   def main(args: Array[String]) {
-    println("Pascal's Triangle")
-    for (row <- 0 to 10) {
-      for (col <- 0 to row)
-        print(pascal(col, row) + " ")
-      println()
-    }
+//    println("Pascal's Triangle")
+//    for (row <- 0 to 10) {
+//      for (col <- 0 to row)
+//        print(pascal(col, row) + " ")
+//      println()
+//    }
 
-    println("Parenthesis balance")
-
+    println("Change Suite")
+    countChange(4, List(1, 2))
   }
 
   /**
@@ -42,5 +42,24 @@ object Main {
   /**
    * Exercise 3
    */
-  def countChange(money: Int, coins: List[Int]): Int = ???
+  def countChange(money: Int, coins: List[Int]): Int = {
+    def partialCount(counter: Int, accumulated: Int, money: Int, coins: List[Int]): Int = {
+      println(s"counter = $counter / accumulated = $accumulated / money = $money / coins = $coins")
+      if (coins.isEmpty) 0
+      else {
+        val aux = accumulated + coins.head
+        if (aux < money) partialCount(counter, aux, money, coins)
+        else if (aux == money) partialCount(counter + 1, 0, money, coins.tail)
+        else
+        //        if (aux == money) 1 + partialCount(accumulated, money, coins.tail)
+        //        if (aux > money) partialCount(0, money, coins.tail)
+        //        partialCount(0, money, coins.tail)
+        counter
+      }
+    }
+
+    if (money == 0) 0
+    else partialCount(0, 0, money, coins)
+  }
+
 }
